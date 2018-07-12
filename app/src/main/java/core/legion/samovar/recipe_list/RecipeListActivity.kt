@@ -1,6 +1,7 @@
 package core.legion.samovar.recipe_list
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import core.legion.samovar.*
 import io.reactivex.Single
@@ -16,7 +17,6 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
         setContentView(R.layout.activity_recipe_list)
 
         rvRecipes.adapter = adapter
-        rvRecipes.layoutManager = LinearLayoutManager(this)
     }
 
     override fun setIds(ids: ArrayList<Long>) {
