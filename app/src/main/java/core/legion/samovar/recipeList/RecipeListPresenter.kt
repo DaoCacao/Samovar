@@ -1,18 +1,19 @@
 package core.legion.samovar.recipeList
 
 import core.legion.samovar.base.BasePresenter
+import core.legion.samovar.data.DBManager
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade.View, RecipeListFacade.Interactor>(), RecipeListFacade.Presenter {
+class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade.View>(), RecipeListFacade.Presenter, RecipeListFacade.RecipeListListener {
+
+    @Inject lateinit var dbManager: DBManager
 
     override fun onResume() {
-        interactor.getAllRecipes().subscribe(view::setIds)
+        dbManager.getRecipes().subscribe { recipes -> view.setRecipes(recipes) }
     }
 
-    override fun onRecipeClick(id: Long) {
+    override fun onItemClick(id: String) {
         view.showToast("Recipe $id")
     }
-
-    override fun getRecipeListItem(id: Long): Single<RecipeListItem> = interactor.getRecipe(id)
 }

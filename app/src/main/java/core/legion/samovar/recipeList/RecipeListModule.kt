@@ -8,8 +8,7 @@ import dagger.Provides
 abstract class RecipeListModule {
     @Binds abstract fun view(view: RecipeListActivity): RecipeListFacade.View
     @Binds abstract fun presenter(presenter: RecipeListPresenter): RecipeListFacade.Presenter
-    @Binds abstract fun interactor(interactor: RecipeListInteractor): RecipeListFacade.Interactor
-    @Binds abstract fun recipeListListener(view: RecipeListActivity): RecipeListFacade.RecipeListListener
+    @Binds abstract fun recipeListListener(presenter: RecipeListPresenter): RecipeListFacade.RecipeListListener
 
     @Module
     companion object {

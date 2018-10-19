@@ -7,6 +7,5 @@ interface BaseFacade {
     interface Presenter {
         fun onResume() {}
     }
-    interface Interactor
 }
 

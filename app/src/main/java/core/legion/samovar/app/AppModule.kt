@@ -2,10 +2,12 @@ package core.legion.samovar.app
 
 import android.content.Context
 import core.legion.samovar.data.FirebaseManagerModule
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module(includes = [FirebaseManagerModule::class])
-interface AppModule {
-    @Binds fun context(appLoader: AppLoader): Context
+class AppModule(private val context: Context) {
+
+    @Provides
+    fun context() = context
 }
