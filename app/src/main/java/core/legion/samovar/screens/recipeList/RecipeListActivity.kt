@@ -8,6 +8,8 @@ import core.legion.samovar.*
 import core.legion.samovar.base.BaseActivity
 import core.legion.samovar.entry.RecipeListItem
 import core.legion.samovar.screens.addRecipe.AddRecipeActivity
+import core.legion.samovar.screens.recipeInfo.RecipeInfoActivity
+import core.legion.samovar.utils.Helper
 import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject
 
@@ -37,6 +39,13 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
     override fun setRecipes(recipes: ArrayList<RecipeListItem>) {
         adapter.recipes = recipes
         adapter.notifyDataSetChanged()
+    }
+
+    override fun navigateToRecipeInfo(id: String) {
+        Intent(this, RecipeInfoActivity::class.java).apply {
+            putExtra(Helper.IntentExtra.RECIPE_ID, id)
+            startActivity(this)
+        }
     }
 
     private fun navigateToAddRecipeScreen() = startActivity(Intent(this, AddRecipeActivity::class.java))
