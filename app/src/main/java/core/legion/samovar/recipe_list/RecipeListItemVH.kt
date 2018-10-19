@@ -1,7 +1,7 @@
 package core.legion.samovar.recipe_list
 
 import android.view.ViewGroup
-import core.legion.samovar.BaseVH
+import core.legion.samovar.base.BaseVH
 import core.legion.samovar.R
 import kotlinx.android.synthetic.main.item_recipe_list.view.*
 

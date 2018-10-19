@@ -1,9 +1,8 @@
 package core.legion.samovar.recipe_list
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import core.legion.samovar.*
+import core.legion.samovar.base.BaseActivity
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject

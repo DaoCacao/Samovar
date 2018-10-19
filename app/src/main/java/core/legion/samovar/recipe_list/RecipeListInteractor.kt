@@ -1,6 +1,6 @@
 package core.legion.samovar.recipe_list
 
-import core.legion.samovar.BaseInteractor
+import core.legion.samovar.base.BaseInteractor
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
