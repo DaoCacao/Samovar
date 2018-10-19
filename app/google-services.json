@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "502139045592",
+    "firebase_url": "https://samovar-app.firebaseio.com",
+    "project_id": "samovar-app",
+    "storage_bucket": "samovar-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502139045592:android:5cb8ef2724b511b5",
+        "android_client_info": {
+          "package_name": "core.legion.samovar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502139045592-mhon65rbune5dbiarjv1oe5insrmvlj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2fU3yRzjTg8vpJYdn-n01BawOwAKvZyk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
