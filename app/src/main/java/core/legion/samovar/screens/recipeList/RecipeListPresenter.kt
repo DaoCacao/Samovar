@@ -6,11 +6,12 @@ import javax.inject.Inject
 
 class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade.View>(), RecipeListFacade.Presenter, RecipeListFacade.RecipeListListener {
 
-    @Inject lateinit var dbManager: DBManager
+    @Inject lateinit var firebase: DBManager
 
     override fun onResume() {
         super<BasePresenter>.onResume()
-        dbManager.getApprovedRecipeList().subscribe { recipes -> view.setRecipes(recipes) }
+
+        firebase.getRecipeList().subscribe { recipes -> view.setRecipes(recipes) }
     }
 
     override fun onItemClick(id: String) {

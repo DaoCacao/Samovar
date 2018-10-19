@@ -6,11 +6,11 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface DBManager {
-    fun getApprovedRecipeList(): Single<ArrayList<RecipeListItem>>
-    fun getReviewedRecipeList(): Single<ArrayList<RecipeListItem>>
+    fun getRecipeList(): Single<ArrayList<RecipeListItem>>
 
-    fun getApprovedRecipe(id: String): Single<RecipeItem>
-    fun getReviewedRecipe(id: String): Single<RecipeItem>
+    fun getRecipe(id: String): Single<RecipeItem>
+    fun addRecipe(name: String, description: String): Completable
 
-    fun addRecipeToReview(name: String, description: String): Completable
+    fun approveRecipe(id: String): Completable
+    fun deleteRecipe(id: String): Completable
 }

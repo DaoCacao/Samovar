@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class RecipeInfoPresenter @Inject constructor() : BasePresenter<RecipeInfoFacade.View>(), RecipeInfoFacade.Presenter {
 
-    @Inject lateinit var firebaseManager: DBManager
+    @Inject lateinit var firebase: DBManager
 
     private var recipeId = ""
 
@@ -19,7 +19,15 @@ class RecipeInfoPresenter @Inject constructor() : BasePresenter<RecipeInfoFacade
 
     override fun onResume() {
         super<BasePresenter>.onResume()
-        firebaseManager.getApprovedRecipe(recipeId).subscribe(this::showRecipe)
+        firebase.getRecipe(recipeId).subscribe(this::showRecipe)
+    }
+
+    override fun onApproveClick() {
+        firebase.approveRecipe(recipeId).subscribe(view::hideModerationButtons)
+    }
+
+    override fun onDeclineClick() {
+        firebase.deleteRecipe(recipeId).subscribe(view::closeView)
     }
 
     private fun showRecipe(item: RecipeItem) {

@@ -20,6 +20,6 @@ class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.V
     }
 
     override fun onAddClick() {
-        firebase.addRecipeToReview(name, description).subscribe { view.closeView() }
+        firebase.addRecipe(name, description).subscribe { view.closeView() }
     }
 }
