@@ -1,7 +1,7 @@
 package core.legion.samovar.app
 
-import core.legion.samovar.recipe_list.RecipeListActivity
-import core.legion.samovar.recipe_list.RecipeListModule
+import core.legion.samovar.recipeList.RecipeListActivity
+import core.legion.samovar.recipeList.RecipeListModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
