@@ -1,4 +1,4 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import android.view.ViewGroup
 import core.legion.samovar.base.BaseVH

@@ -1,4 +1,4 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

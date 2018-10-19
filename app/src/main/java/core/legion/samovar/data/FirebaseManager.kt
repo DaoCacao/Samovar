@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import core.legion.samovar.recipeList.RecipeListItem
+import core.legion.samovar.screens.recipeList.RecipeListItem
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -1,6 +1,6 @@
 package core.legion.samovar.data
 
-import core.legion.samovar.recipeList.RecipeListItem
+import core.legion.samovar.screens.recipeList.RecipeListItem
 import io.reactivex.Single
 
 interface DBManager {

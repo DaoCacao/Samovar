@@ -1,7 +1,6 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import core.legion.samovar.base.BaseFacade
-import io.reactivex.Single
 
 interface RecipeListFacade {
     interface View : BaseFacade.View {

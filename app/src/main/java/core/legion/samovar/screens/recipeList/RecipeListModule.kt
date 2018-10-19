@@ -1,4 +1,4 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import dagger.Binds
 import dagger.Module

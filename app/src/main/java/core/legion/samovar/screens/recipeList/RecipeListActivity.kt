@@ -1,9 +1,8 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import android.os.Bundle
 import core.legion.samovar.*
 import core.legion.samovar.base.BaseActivity
-import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject
 

@@ -1,8 +1,7 @@
-package core.legion.samovar.recipeList
+package core.legion.samovar.screens.recipeList
 
 import core.legion.samovar.base.BasePresenter
 import core.legion.samovar.data.DBManager
-import io.reactivex.Single
 import javax.inject.Inject
 
 class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade.View>(), RecipeListFacade.Presenter, RecipeListFacade.RecipeListListener {
