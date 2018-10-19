@@ -1,48 +1,47 @@
 package core.legion.samovar.data
 
-import android.content.Context
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import core.legion.samovar.screens.recipeList.RecipeListItem
+import com.google.firebase.firestore.QuerySnapshot
+import core.legion.samovar.entry.RecipeListItem
+import core.legion.samovar.utils.EntryBuilder
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FirebaseManager @Inject constructor(context: Context) : DBManager {
+class FirebaseManager @Inject constructor() : DBManager {
 
-    private val collectionRecipes = "recipes"
+    private val collectionRecipesApproved = "recipes_approved"
+    private val collectionRecipesReview = "recipes_review"
 
     @Inject lateinit var fbStore: FirebaseFirestore
 
-    override fun getRecipes(): Single<ArrayList<RecipeListItem>> {
+    override fun getApprovedRecipeList(): Single<ArrayList<RecipeListItem>> = getRecipeList(collectionRecipesApproved)
+    override fun getReviewedRecipeList(): Single<ArrayList<RecipeListItem>> = getRecipeList(collectionRecipesReview)
+
+    private fun getRecipeList(collection: String): Single<ArrayList<RecipeListItem>> {
         return Single.create {
-            Log.e("###", "getRecipes")
-            val ref = fbStore.collection(collectionRecipes)
-            Log.e("###", ref.toString())
-            val task = ref.get()
-            Log.e("###", task.toString())
-
-            task.addOnCompleteListener { task ->
-
-                if (task.isSuccessful) {
-                    val recipeListItems = ArrayList<RecipeListItem>()
-                    task.result?.forEach { recipeListItems += buildRecipeListItem(it) }
-
-                    it.onSuccess(recipeListItems)
-
-                } else Log.e("###", "something went wrong: ${task.exception}")
-            }
+            fbStore.collection(collection)
+                    .get()
+                    .addOnSuccessListener { snapshot -> it.onSuccess(buildRecipeListFromSnapshot(snapshot)) }
         }
     }
 
-    private fun buildRecipeListItem(snapshot: QueryDocumentSnapshot): RecipeListItem {
-        return RecipeListItem(
-                snapshot.id,
-                snapshot.data["name"].toString()
-        )
+    override fun addRecipeToReview(name: String, description: String): Completable {
+        return Completable.create {
+            fbStore.collection(collectionRecipesReview)
+                    .add(EntryBuilder.buildRecipeItem(name, description))
+                    .addOnSuccessListener { _ -> it.onComplete() }
+        }
     }
 
+    private fun buildRecipeListFromSnapshot(snapshot: QuerySnapshot): ArrayList<RecipeListItem> {
+        return ArrayList<RecipeListItem>().apply {
+            snapshot.forEach {
+                add(EntryBuilder.buildRecipeListItem(it))
+            }
+        }
+    }
 }
 

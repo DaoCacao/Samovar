@@ -1,8 +1,13 @@
 package core.legion.samovar.screens.recipeList
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import core.legion.samovar.*
 import core.legion.samovar.base.BaseActivity
+import core.legion.samovar.entry.RecipeListItem
+import core.legion.samovar.screens.addRecipe.AddRecipeActivity
 import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject
 
@@ -17,11 +22,23 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
         rvRecipes.adapter = adapter
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_recipe_list, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_add -> navigateToAddRecipeScreen()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun setRecipes(recipes: ArrayList<RecipeListItem>) {
         adapter.recipes = recipes
         adapter.notifyDataSetChanged()
     }
 
-
+    private fun navigateToAddRecipeScreen() = startActivity(Intent(this, AddRecipeActivity::class.java))
 }
 

@@ -9,7 +9,7 @@ class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade
     @Inject lateinit var dbManager: DBManager
 
     override fun onResume() {
-        dbManager.getRecipes().subscribe { recipes -> view.setRecipes(recipes) }
+        dbManager.getApprovedRecipeList().subscribe { recipes -> view.setRecipes(recipes) }
     }
 
     override fun onItemClick(id: String) {

@@ -2,6 +2,7 @@ package core.legion.samovar.screens.recipeList
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import core.legion.samovar.entry.RecipeListItem
 
 class RecipeListAdapter(private val recipeListListener: RecipeListFacade.RecipeListListener) : RecyclerView.Adapter<RecipeListItemVH>() {
 

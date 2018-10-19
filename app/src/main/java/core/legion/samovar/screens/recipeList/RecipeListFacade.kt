@@ -1,6 +1,7 @@
 package core.legion.samovar.screens.recipeList
 
 import core.legion.samovar.base.BaseFacade
+import core.legion.samovar.entry.RecipeListItem
 
 interface RecipeListFacade {
     interface View : BaseFacade.View {
