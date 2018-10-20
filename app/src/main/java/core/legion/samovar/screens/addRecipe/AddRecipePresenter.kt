@@ -10,6 +10,7 @@ class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.V
 
     private var name = ""
     private var description = ""
+    private var image: ByteArray = ByteArray(0)
 
     override fun onNameChanged(name: String) {
         this.name = name
@@ -20,6 +21,6 @@ class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.V
     }
 
     override fun onAddClick() {
-        firebase.addRecipe(name, description).subscribe { view.closeView() }
+        firebase.addRecipe(name, description, image).subscribe { view.closeView() }
     }
 }

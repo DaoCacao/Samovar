@@ -27,7 +27,7 @@ class RecipeInfoPresenter @Inject constructor() : BasePresenter<RecipeInfoFacade
     }
 
     override fun onDeclineClick() {
-        firebase.deleteRecipe(recipeId).subscribe(view::closeView)
+        firebase.removeRecipe(recipeId).subscribe(view::closeView)
     }
 
     private fun showRecipe(item: RecipeItem) {

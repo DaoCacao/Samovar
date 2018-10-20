@@ -9,8 +9,10 @@ interface DBManager {
     fun getRecipeList(): Single<ArrayList<RecipeListItem>>
 
     fun getRecipe(id: String): Single<RecipeItem>
-    fun addRecipe(name: String, description: String): Completable
+    fun addRecipe(name: String, description: String, image: ByteArray): Completable
+    fun removeRecipe(id: String): Completable
 
     fun approveRecipe(id: String): Completable
-    fun deleteRecipe(id: String): Completable
+
+    fun downloadImage(id: String): Single<ByteArray>
 }

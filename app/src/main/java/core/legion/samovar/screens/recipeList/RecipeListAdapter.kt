@@ -12,6 +12,11 @@ class RecipeListAdapter(private val recipeListListener: RecipeListFacade.RecipeL
 
     override fun getItemCount() = recipes.size
 
-    override fun onBindViewHolder(holder: RecipeListItemVH, position: Int) = holder.bind(recipes[position])
+    override fun onBindViewHolder(holder: RecipeListItemVH, position: Int) {
+        holder.bind(recipes[position])
+        recipeListListener
+                .loadImage(recipes[position].id)
+                .subscribe { idImagePair -> holder.bindImage(idImagePair.first, idImagePair.second) }
+    }
 }
 

@@ -2,6 +2,7 @@ package core.legion.samovar.data
 
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,6 +26,12 @@ abstract class FirebaseManagerModule {
         @Provides
         fun firebaseFirestore(firebaseApp: FirebaseApp): FirebaseFirestore {
             return FirebaseFirestore.getInstance(firebaseApp)
+        }
+
+        @JvmStatic
+        @Provides
+        fun firebaseStorage(firebaseApp: FirebaseApp): FirebaseStorage {
+            return FirebaseStorage.getInstance(firebaseApp)
         }
     }
 }
