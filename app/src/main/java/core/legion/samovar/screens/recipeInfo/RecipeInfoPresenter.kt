@@ -2,7 +2,7 @@ package core.legion.samovar.screens.recipeInfo
 
 import android.content.Intent
 import core.legion.samovar.base.BasePresenter
-import core.legion.samovar.data.DBManager
+import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.entry.RecipeItem
 import core.legion.samovar.utils.Helper
 import javax.inject.Inject

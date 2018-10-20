@@ -1,4 +1,4 @@
-package core.legion.samovar.data
+package core.legion.samovar.data.firebaseManager
 
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore

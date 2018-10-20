@@ -1,30 +1,45 @@
 package core.legion.samovar.screens.addRecipe
 
+import android.app.Activity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import core.legion.samovar.R
 import core.legion.samovar.base.BaseActivity
+import core.legion.samovar.utils.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_add_recipe.*
+import android.content.Intent
+import android.graphics.Bitmap
 
 class AddRecipeActivity : BaseActivity<AddRecipeFacade.Presenter>(), AddRecipeFacade.View {
+
+    private val requestGallery = 69
+    private val externalUri by lazy { android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_recipe)
 
-        etName.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) = presenter.onNameChanged(s.toString())
-        })
-        etDescription.addTextChangedListener(object : SimpleTextWatcher() {
-            override fun afterTextChanged(s: Editable?) = presenter.onDescriptionChanged(s.toString())
-        })
+        etName.addTextChangedListener(SimpleTextWatcher(presenter::onNameChanged))
+        etDescription.addTextChangedListener(SimpleTextWatcher(presenter::onDescriptionChanged))
 
-        ivAdd.setOnClickListener { presenter.onAddClick() }
+        ivImage.setOnClickListener { presenter.onImageClick() }
+        btnAdd.setOnClickListener { presenter.onAddClick() }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK)
+            when (requestCode) {
+                requestGallery -> presenter.onImageFromGallery(data!!)
+            }
+    }
+
+    override fun showChooseImageDialog() {
+        openGallery()
+    }
+
+    override fun showImage(image: Bitmap) = ivImage.setImageBitmap(image)
+
+    private fun openGallery() = startActivityForResult(createGalleryIntent(), requestGallery)
+    private fun createGalleryIntent() = Intent(Intent.ACTION_PICK, externalUri).apply { type = "image/*" }
 }
 
-abstract class SimpleTextWatcher : TextWatcher {
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-}

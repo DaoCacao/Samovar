@@ -1,4 +1,4 @@
-package core.legion.samovar.data
+package core.legion.samovar.data.firebaseManager
 
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -46,7 +46,7 @@ class FirebaseManager @Inject constructor() : DBManager {
     override fun downloadImage(id: String): Single<ByteArray> {
         return Single.create {
             getImageRef(id)
-                    .getBytes(1024 * 1024 /*1 MB*/)
+                    .getBytes(Long.MAX_VALUE)
                     .addOnSuccessListener(it::onSuccess)
         }
     }

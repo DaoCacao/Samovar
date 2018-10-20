@@ -1,4 +1,4 @@
-package core.legion.samovar.data
+package core.legion.samovar.data.firebaseManager
 
 import core.legion.samovar.entry.RecipeItem
 import core.legion.samovar.entry.RecipeListItem

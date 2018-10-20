@@ -2,7 +2,7 @@ package core.legion.samovar.screens.recipeList
 
 import android.graphics.Bitmap
 import core.legion.samovar.base.BasePresenter
-import core.legion.samovar.data.DBManager
+import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.utils.BitmapUtils
 import io.reactivex.Single
 import javax.inject.Inject
