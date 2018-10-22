@@ -1,5 +1,6 @@
 package core.legion.samovar.data.firebaseManager
 
+import android.net.Uri
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
@@ -34,6 +35,12 @@ class FirebaseManager @Inject constructor() : DBManager {
         return downloadRecipe(id)
                 .flatMap { EntryBuilder.buildRecipeItem(it) }
     }
+    override fun getImageUrl(id: String): Single<Uri> {
+        return Single.create {
+            getImageRef(id).downloadUrl.addOnSuccessListener(it::onSuccess)
+        }
+    }
+
     override fun addRecipe(name: String, description: String, image: ByteArray): Completable {
         return EntryBuilder.buildRecipeItem(name, description)
                 .flatMap { uploadRecipe(it) }
@@ -42,13 +49,6 @@ class FirebaseManager @Inject constructor() : DBManager {
     override fun removeRecipe(id: String): Completable {
         return deleteRecipe(id)
                 .flatMapCompletable { deleteImage(id) }
-    }
-    override fun downloadImage(id: String): Single<ByteArray> {
-        return Single.create {
-            getImageRef(id)
-                    .getBytes(Long.MAX_VALUE)
-                    .addOnSuccessListener(it::onSuccess)
-        }
     }
     override fun approveRecipe(id: String): Completable {
         return Completable.create {

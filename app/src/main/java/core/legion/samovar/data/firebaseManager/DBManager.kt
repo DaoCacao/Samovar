@@ -1,5 +1,6 @@
 package core.legion.samovar.data.firebaseManager
 
+import android.net.Uri
 import core.legion.samovar.entry.RecipeItem
 import core.legion.samovar.entry.RecipeListItem
 import io.reactivex.Completable
@@ -12,7 +13,7 @@ interface DBManager {
     fun addRecipe(name: String, description: String, image: ByteArray): Completable
     fun removeRecipe(id: String): Completable
 
-    fun approveRecipe(id: String): Completable
+    fun getImageUrl(id: String): Single<Uri>
 
-    fun downloadImage(id: String): Single<ByteArray>
+    fun approveRecipe(id: String): Completable
 }
