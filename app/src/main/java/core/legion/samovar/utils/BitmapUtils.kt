@@ -12,7 +12,7 @@ object BitmapUtils {
     fun getBitmap(bytes: ByteArray) = Single.just(decode(bytes))!!
     fun getBitmap(inputStream: InputStream) = Single.just(decode(inputStream))!!
 
-    private fun compress(bitmap: Bitmap, stream: ByteArrayOutputStream) = stream.apply { bitmap.compress(Bitmap.CompressFormat.JPEG, 100, this) }.toByteArray()
+    private fun compress(bitmap: Bitmap, stream: ByteArrayOutputStream) = stream.apply { bitmap.compress(Bitmap.CompressFormat.JPEG, 20, this) }.toByteArray()
     private fun decode(bytes: ByteArray) = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
     private fun decode(inputStream: InputStream) = BitmapFactory.decodeStream(inputStream)
 }

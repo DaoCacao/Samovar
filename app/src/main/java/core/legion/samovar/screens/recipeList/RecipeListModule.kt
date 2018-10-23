@@ -14,6 +14,9 @@ abstract class RecipeListModule {
     abstract fun presenter(presenter: RecipeListPresenter): RecipeListFacade.Presenter
 
     @Binds
+    abstract fun interactor(interactor: RecipeListInteractor): RecipeListFacade.Interactor
+
+    @Binds
     abstract fun recipeListListener(presenter: RecipeListPresenter): RecipeListFacade.RecipeListListener
 
     @Module

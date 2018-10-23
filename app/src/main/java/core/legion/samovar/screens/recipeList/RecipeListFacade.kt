@@ -12,11 +12,18 @@ interface RecipeListFacade {
         fun navigateToRecipeInfo(id: String)
     }
 
-    interface Presenter : BaseFacade.Presenter
+    interface Presenter : BaseFacade.Presenter {
+        fun onViewInit()
+    }
+
+    interface Interactor {
+        fun getRecipeList(): Single<ArrayList<RecipeListItem>>
+        fun getRecipeImage(id: String): Single<Pair<String, Uri>>
+    }
 
     interface RecipeListListener {
         fun onItemClick(id: String)
 
-        fun getImageUrl(id: String): Single<Pair<String,Uri>>
+        fun getImageUrl(id: String): Single<Pair<String, Uri>>
     }
 }

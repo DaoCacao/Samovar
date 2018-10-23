@@ -2,6 +2,7 @@ package core.legion.samovar.screens.recipeList
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import core.legion.samovar.*
@@ -11,17 +12,23 @@ import core.legion.samovar.screens.addRecipe.AddRecipeActivity
 import core.legion.samovar.screens.recipeInfo.RecipeInfoActivity
 import core.legion.samovar.utils.Helper
 import kotlinx.android.synthetic.main.activity_recipe_list.*
+import java.util.*
 import javax.inject.Inject
 
 class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeListFacade.View {
 
     @Inject lateinit var adapter: RecipeListAdapter
 
+    private val layoutManager = GridLayoutManager(this, 2)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_list)
 
         rvRecipes.adapter = adapter
+        rvRecipes.layoutManager = layoutManager
+
+        presenter.onViewInit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
