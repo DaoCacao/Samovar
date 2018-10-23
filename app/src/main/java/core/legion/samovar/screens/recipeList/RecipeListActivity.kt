@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import core.legion.samovar.*
 import core.legion.samovar.base.BaseActivity
 import core.legion.samovar.entry.RecipeListItem
@@ -15,6 +16,12 @@ import kotlinx.android.synthetic.main.activity_recipe_list.*
 import javax.inject.Inject
 
 class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeListFacade.View {
+
+    enum class State {
+        Loading,
+        Empty,
+        Recipes
+    }
 
     @Inject lateinit var adapter: RecipeListAdapter
 
@@ -44,7 +51,13 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setRecipes(recipes: ArrayList<RecipeListItem>) {
+
+    override fun showLoading() = changeState(State.Loading)
+
+    override fun showListEmpty() = changeState(State.Empty)
+
+    override fun showRecipes(recipes: ArrayList<RecipeListItem>) {
+        changeState(State.Recipes)
         adapter.recipes = recipes
         adapter.notifyDataSetChanged()
     }
@@ -57,5 +70,11 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
     }
 
     private fun navigateToAddRecipeScreen() = startActivity(Intent(this, AddRecipeActivity::class.java))
+
+    private fun changeState(state: State) {
+        rvRecipes.visibility = if (state == State.Recipes) View.VISIBLE else View.GONE
+        pbLoading.visibility = if (state == State.Loading) View.VISIBLE else View.GONE
+        tvNoRecipes.visibility = if (state == State.Empty) View.VISIBLE else View.GONE
+    }
 }
 

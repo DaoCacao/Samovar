@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Samovar</string>
+    <string name="no_recipes">Sorry, no recipes yet\n¯\\_(ツ)_/¯</string>
 </resources>

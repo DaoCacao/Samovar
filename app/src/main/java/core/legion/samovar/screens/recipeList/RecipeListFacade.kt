@@ -7,7 +7,9 @@ import io.reactivex.Single
 
 interface RecipeListFacade {
     interface View : BaseFacade.View {
-        fun setRecipes(recipes: ArrayList<RecipeListItem>)
+        fun showLoading()
+        fun showListEmpty()
+        fun showRecipes(recipes: ArrayList<RecipeListItem>)
 
         fun navigateToRecipeInfo(id: String)
     }

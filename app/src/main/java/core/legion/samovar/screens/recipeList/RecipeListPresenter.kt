@@ -10,7 +10,8 @@ class RecipeListPresenter @Inject constructor() : BasePresenter<RecipeListFacade
     @Inject lateinit var interactor: RecipeListFacade.Interactor
 
     override fun onViewInit() {
-        interactor.getRecipeList().subscribe(view::setRecipes)
+        view.showLoading()
+        interactor.getRecipeList().subscribe { list -> if (list.isEmpty()) view.showListEmpty() else view.showRecipes(list) }
     }
 
     override fun onItemClick(id: String) = view.navigateToRecipeInfo(id)
