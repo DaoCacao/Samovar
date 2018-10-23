@@ -7,14 +7,21 @@ import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.utils.BitmapUtils
 import javax.inject.Inject
 
-class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.View>(), AddRecipeFacade.Presenter {
+class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.View>(), AddRecipeFacade.Presenter, AddRecipeFacade.OnIngredientChangeListener {
 
     @Inject lateinit var firebase: DBManager
     @Inject lateinit var contentManager: ContentManager
+    @Inject lateinit var interactor: AddRecipeFacade.Interactor
 
+    private var image: ByteArray = ByteArray(0)
     private var name = ""
     private var description = ""
-    private var image: ByteArray = ByteArray(0)
+
+    override fun onViewInit() {
+        interactor.getIngredients().subscribe(view::showIngredients)
+//        interactor.getEquipment().subscribe(view::showEquipment)
+//        interactor.getRecipe().subscribe(view::showRecipe)
+    }
 
     override fun onNameChanged(name: String) {
         this.name = name
@@ -35,5 +42,8 @@ class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.V
             BitmapUtils.getBytes(image).subscribe { bytes -> this.image = bytes }
             view.showImage(image)
         }
+    }
+
+    override fun onIngredientChange(pos: Int, ingredient: String) {
     }
 }
