@@ -12,7 +12,6 @@ import core.legion.samovar.screens.addRecipe.AddRecipeActivity
 import core.legion.samovar.screens.recipeInfo.RecipeInfoActivity
 import core.legion.samovar.utils.Helper
 import kotlinx.android.synthetic.main.activity_recipe_list.*
-import java.util.*
 import javax.inject.Inject
 
 class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeListFacade.View {
@@ -24,6 +23,8 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe_list)
+
+        setSupportActionBar(toolbar)
 
         rvRecipes.adapter = adapter
         rvRecipes.layoutManager = layoutManager

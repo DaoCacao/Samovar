@@ -30,7 +30,7 @@
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:paddingTop="8dp"
-        android:textColor="#fff"
+        android:textColor="@color/white"
         android:textSize="18sp"
         tools:text="@tools:sample/full_names" />
 
