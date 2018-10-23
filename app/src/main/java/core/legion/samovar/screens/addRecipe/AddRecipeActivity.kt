@@ -8,6 +8,7 @@ import core.legion.samovar.utils.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_add_recipe.*
 import android.content.Intent
 import android.graphics.Bitmap
+import android.support.v4.view.ViewCompat
 
 class AddRecipeActivity : BaseActivity<AddRecipeFacade.Presenter>(), AddRecipeFacade.View {
 
@@ -18,11 +19,21 @@ class AddRecipeActivity : BaseActivity<AddRecipeFacade.Presenter>(), AddRecipeFa
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_recipe)
 
+        setSupportActionBar(toolbar)
+
+        ivImage.setOnClickListener { presenter.onImageClick() }
+
         etName.addTextChangedListener(SimpleTextWatcher(presenter::onNameChanged))
         etDescription.addTextChangedListener(SimpleTextWatcher(presenter::onDescriptionChanged))
 
-        ivImage.setOnClickListener { presenter.onImageClick() }
-        btnAdd.setOnClickListener { presenter.onAddClick() }
+        rvIngredients.adapter = IngredientsAdapter()
+        ViewCompat.setNestedScrollingEnabled(rvIngredients, false)
+        rvEquipments.adapter = IngredientsAdapter()
+        ViewCompat.setNestedScrollingEnabled(rvEquipments, false)
+        rvRecipe.adapter = IngredientsAdapter()
+        ViewCompat.setNestedScrollingEnabled(rvRecipe, false)
+
+        fab.setOnClickListener { presenter.onAddClick() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
