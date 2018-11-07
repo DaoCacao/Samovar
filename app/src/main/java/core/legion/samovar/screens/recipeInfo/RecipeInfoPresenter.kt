@@ -5,7 +5,7 @@ import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.entry.RecipeItem
 import core.legion.samovar.utils.Helper
 
-class RecipeInfoPresenter(val view: RecipeInfoFacade.View, val firebase: DBManager) : RecipeInfoFacade.Presenter {
+class RecipeInfoPresenter(private val view: RecipeInfoFacade.View, private val firebase: DBManager) : RecipeInfoFacade.Presenter {
 
     private var recipeId = ""
 

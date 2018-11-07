@@ -3,7 +3,7 @@ package core.legion.samovar.screens.recipeList
 import android.net.Uri
 import io.reactivex.Single
 
-class RecipeListPresenter(val view: RecipeListFacade.View, val interactor: RecipeListFacade.Interactor) : RecipeListFacade.Presenter, RecipeListFacade.RecipeListListener {
+class RecipeListPresenter(private val view: RecipeListFacade.View, private val interactor: RecipeListFacade.Interactor) : RecipeListFacade.Presenter, RecipeListFacade.RecipeListListener {
 
     override fun onViewInit() {
         view.showLoading()

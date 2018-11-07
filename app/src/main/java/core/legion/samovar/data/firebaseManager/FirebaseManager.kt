@@ -12,7 +12,7 @@ import core.legion.samovar.utils.EntryBuilder
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class FirebaseManager(val fbStore: FirebaseFirestore, val fbStorage: FirebaseStorage) : DBManager {
+class FirebaseManager(private val fbStore: FirebaseFirestore, private val fbStorage: FirebaseStorage) : DBManager {
 
     enum class FbException {
         OK,

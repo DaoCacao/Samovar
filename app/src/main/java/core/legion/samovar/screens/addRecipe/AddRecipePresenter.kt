@@ -5,7 +5,7 @@ import core.legion.samovar.data.contentManager.ContentManager
 import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.utils.BitmapUtils
 
-class AddRecipePresenter(val view: AddRecipeFacade.View, var interactor: AddRecipeFacade.Interactor, var firebase: DBManager, var contentManager: ContentManager) : AddRecipeFacade.Presenter, AddRecipeFacade.OnIngredientChangeListener {
+class AddRecipePresenter(private val view: AddRecipeFacade.View, private var interactor: AddRecipeFacade.Interactor, private var firebase: DBManager, private var contentManager: ContentManager) : AddRecipeFacade.Presenter {
 
     private var image: ByteArray = ByteArray(0)
     private var name = ""
@@ -13,8 +13,8 @@ class AddRecipePresenter(val view: AddRecipeFacade.View, var interactor: AddReci
 
     override fun onViewInit() {
         interactor.getIngredients().subscribe(view::showIngredients)
-//        interactor.getEquipment().subscribe(view::showEquipment)
-//        interactor.getRecipe().subscribe(view::showRecipe)
+        interactor.getEquipments().subscribe(view::showEquipments)
+        interactor.getRecipePoints().subscribe(view::showRecipePoints)
     }
 
     override fun onNameChanged(name: String) {
@@ -36,8 +36,5 @@ class AddRecipePresenter(val view: AddRecipeFacade.View, var interactor: AddReci
             BitmapUtils.getBytes(image).subscribe { bytes -> this.image = bytes }
             view.showImage(image)
         }
-    }
-
-    override fun onIngredientChange(pos: Int, ingredient: String) {
     }
 }
