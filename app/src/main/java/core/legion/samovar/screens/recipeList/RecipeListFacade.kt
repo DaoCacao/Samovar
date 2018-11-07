@@ -1,12 +1,11 @@
 package core.legion.samovar.screens.recipeList
 
 import android.net.Uri
-import core.legion.samovar.base.BaseFacade
 import core.legion.samovar.entry.RecipeListItem
 import io.reactivex.Single
 
 interface RecipeListFacade {
-    interface View : BaseFacade.View {
+    interface View {
         fun showLoading()
         fun showListEmpty()
         fun showRecipes(recipes: ArrayList<RecipeListItem>)
@@ -14,7 +13,7 @@ interface RecipeListFacade {
         fun navigateToRecipeInfo(id: String)
     }
 
-    interface Presenter : BaseFacade.Presenter {
+    interface Presenter {
         fun onViewInit()
     }
 

@@ -3,18 +3,28 @@ package core.legion.samovar.screens.addRecipe
 import android.app.Activity
 import android.os.Bundle
 import core.legion.samovar.R
-import core.legion.samovar.base.BaseActivity
 import core.legion.samovar.utils.SimpleTextWatcher
-import kotlinx.android.synthetic.main.activity_add_recipe.*
 import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v4.view.ViewCompat
+import com.github.salomonbrys.kodein.*
+import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import core.legion.samovar.entry.IngredientItem
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_add_recipe.*
 
-class AddRecipeActivity : BaseActivity<AddRecipeFacade.Presenter>(), AddRecipeFacade.View {
+class AddRecipeActivity : KodeinAppCompatActivity(), AddRecipeFacade.View {
 
-    @Inject lateinit var ingredientsAdapter: IngredientsAdapter
+    override fun provideOverridingModule() = Kodein.Module {
+        bind<AddRecipeFacade.View>() with provider { this@AddRecipeActivity }
+        bind<AddRecipePresenter>() with singleton { AddRecipePresenter(instance(), instance(), instance(), instance()) }
+        bind<AddRecipeFacade.Presenter>() with provider { instance<AddRecipePresenter>() }
+        bind<AddRecipeFacade.OnIngredientChangeListener>() with provider { instance<AddRecipePresenter>() }
+        bind<AddRecipeFacade.Interactor>() with provider { AddRecipeInteractor() }
+        bind<IngredientsAdapter>() with provider { IngredientsAdapter(instance()) }
+    }
+
+    private val presenter: AddRecipeFacade.Presenter by instance()
+    private val ingredientsAdapter: IngredientsAdapter by instance()
 
     private val requestGallery = 69
     private val externalUri by lazy { android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI }
@@ -57,6 +67,8 @@ class AddRecipeActivity : BaseActivity<AddRecipeFacade.Presenter>(), AddRecipeFa
         ingredientsAdapter.ingredients = ingredients
         ingredientsAdapter.notifyDataSetChanged()
     }
+
+    override fun closeView() = finish()
 
     override fun showChooseImageDialog() {
         openGallery()

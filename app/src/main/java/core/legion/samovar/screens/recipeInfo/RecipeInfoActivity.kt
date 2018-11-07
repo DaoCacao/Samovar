@@ -1,13 +1,20 @@
 package core.legion.samovar.screens.recipeInfo
 
 import android.os.Bundle
-import android.transition.Visibility
 import android.view.View
+import com.github.salomonbrys.kodein.*
+import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import core.legion.samovar.R
-import core.legion.samovar.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_recipe_info.*
 
-class RecipeInfoActivity : BaseActivity<RecipeInfoFacade.Presenter>(), RecipeInfoFacade.View {
+class RecipeInfoActivity : KodeinAppCompatActivity(), RecipeInfoFacade.View {
+
+    override fun provideOverridingModule() = Kodein.Module {
+        bind<RecipeInfoFacade.View>() with provider { this@RecipeInfoActivity }
+        bind<RecipeInfoFacade.Presenter>() with provider { RecipeInfoPresenter(instance(), instance()) }
+    }
+
+    private val presenter: RecipeInfoFacade.Presenter by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +25,8 @@ class RecipeInfoActivity : BaseActivity<RecipeInfoFacade.Presenter>(), RecipeInf
 
         presenter.handleIntent(intent)
     }
+
+    override fun closeView() = finish()
 
     override fun hideModerationButtons() {
         ivApprove.visibility = View.GONE

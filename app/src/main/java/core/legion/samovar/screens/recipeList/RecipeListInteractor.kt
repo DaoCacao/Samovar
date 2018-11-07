@@ -4,11 +4,8 @@ import android.net.Uri
 import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.entry.RecipeListItem
 import io.reactivex.Single
-import javax.inject.Inject
 
-class RecipeListInteractor @Inject constructor() : RecipeListFacade.Interactor {
-
-    @Inject lateinit var firebase: DBManager
+class RecipeListInteractor(val firebase: DBManager) : RecipeListFacade.Interactor {
 
     private lateinit var recipeList: ArrayList<RecipeListItem>
 

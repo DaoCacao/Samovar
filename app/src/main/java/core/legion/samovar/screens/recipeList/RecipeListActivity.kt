@@ -6,16 +6,25 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.github.salomonbrys.kodein.*
+import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import core.legion.samovar.*
-import core.legion.samovar.base.BaseActivity
 import core.legion.samovar.entry.RecipeListItem
 import core.legion.samovar.screens.addRecipe.AddRecipeActivity
 import core.legion.samovar.screens.recipeInfo.RecipeInfoActivity
 import core.legion.samovar.utils.Helper
 import kotlinx.android.synthetic.main.activity_recipe_list.*
-import javax.inject.Inject
 
-class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeListFacade.View {
+class RecipeListActivity : KodeinAppCompatActivity(), RecipeListFacade.View {
+
+    override fun provideOverridingModule(): Kodein.Module = Kodein.Module {
+        bind<RecipeListFacade.View>() with provider { this@RecipeListActivity }
+        bind<RecipeListPresenter>() with singleton { RecipeListPresenter(instance(), instance()) }
+        bind<RecipeListFacade.Presenter>() with provider { instance<RecipeListPresenter>() }
+        bind<RecipeListFacade.RecipeListListener>() with provider { instance<RecipeListPresenter>() }
+        bind<RecipeListFacade.Interactor>() with provider { RecipeListInteractor(instance()) }
+        bind<RecipeListAdapter>() with provider { RecipeListAdapter(instance()) }
+    }
 
     enum class State {
         Loading,
@@ -23,7 +32,8 @@ class RecipeListActivity : BaseActivity<RecipeListFacade.Presenter>(), RecipeLis
         Recipes
     }
 
-    @Inject lateinit var adapter: RecipeListAdapter
+    private val presenter: RecipeListFacade.Presenter by instance()
+    private val adapter: RecipeListAdapter by instance()
 
     private val layoutManager = GridLayoutManager(this, 2)
 

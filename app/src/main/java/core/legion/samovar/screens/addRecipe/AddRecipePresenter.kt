@@ -1,17 +1,11 @@
 package core.legion.samovar.screens.addRecipe
 
 import android.content.Intent
-import core.legion.samovar.base.BasePresenter
 import core.legion.samovar.data.contentManager.ContentManager
 import core.legion.samovar.data.firebaseManager.DBManager
 import core.legion.samovar.utils.BitmapUtils
-import javax.inject.Inject
 
-class AddRecipePresenter @Inject constructor() : BasePresenter<AddRecipeFacade.View>(), AddRecipeFacade.Presenter, AddRecipeFacade.OnIngredientChangeListener {
-
-    @Inject lateinit var firebase: DBManager
-    @Inject lateinit var contentManager: ContentManager
-    @Inject lateinit var interactor: AddRecipeFacade.Interactor
+class AddRecipePresenter(val view: AddRecipeFacade.View, var interactor: AddRecipeFacade.Interactor, var firebase: DBManager, var contentManager: ContentManager) : AddRecipeFacade.Presenter, AddRecipeFacade.OnIngredientChangeListener {
 
     private var image: ByteArray = ByteArray(0)
     private var name = ""

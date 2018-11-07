@@ -11,11 +11,8 @@ import core.legion.samovar.entry.RecipeListItem
 import core.legion.samovar.utils.EntryBuilder
 import io.reactivex.Completable
 import io.reactivex.Single
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FirebaseManager @Inject constructor() : DBManager {
+class FirebaseManager(val fbStore: FirebaseFirestore, val fbStorage: FirebaseStorage) : DBManager {
 
     enum class FbException {
         OK,
@@ -23,9 +20,6 @@ class FirebaseManager @Inject constructor() : DBManager {
     }
 
     private val collectionRecipes = "recipes"
-
-    @Inject lateinit var fbStore: FirebaseFirestore
-    @Inject lateinit var fbStorage: FirebaseStorage
 
     override fun getRecipeList(): Single<ArrayList<RecipeListItem>> {
         return downloadRecipes()
