@@ -2,16 +2,16 @@ package core.legion.samovar.screens.addRecipe
 
 import android.content.Intent
 import android.graphics.Bitmap
-import core.legion.samovar.base.BaseFacade
 import core.legion.samovar.entry.IngredientItem
-import io.reactivex.Completable
 import io.reactivex.Single
 
 interface AddRecipeFacade {
 
-    interface View : BaseFacade.View {
+    interface View {
         fun showImage(image: Bitmap)
         fun showIngredients(ingredients: ArrayList<IngredientItem>)
+
+        fun closeView()
 
         fun showChooseImageDialog()
 
@@ -19,7 +19,7 @@ interface AddRecipeFacade {
         fun notifyIngredientRemoved(pos: Int)
     }
 
-    interface Presenter : BaseFacade.Presenter {
+    interface Presenter {
         fun onViewInit()
 
         fun onNameChanged(name: String)

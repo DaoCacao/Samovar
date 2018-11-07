@@ -1,19 +1,23 @@
 package core.legion.samovar.screens.recipeInfo
 
 import android.content.Intent
-import core.legion.samovar.base.BaseFacade
 
 interface RecipeInfoFacade {
 
-    interface View : BaseFacade.View {
+    interface View {
+
         fun showName(name: String)
         fun showDescription(description: String)
+
+        fun closeView()
 
         fun hideModerationButtons()
     }
 
-    interface Presenter : BaseFacade.Presenter {
+    interface Presenter {
         fun handleIntent(intent: Intent)
+
+        fun onResume()
 
         fun onApproveClick()
         fun onDeclineClick()

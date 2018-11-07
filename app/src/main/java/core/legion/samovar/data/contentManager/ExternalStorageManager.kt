@@ -5,11 +5,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import core.legion.samovar.utils.BitmapUtils
 import io.reactivex.Single
-import javax.inject.Inject
 
-class ExternalStorageManager @Inject constructor() : ContentManager {
-
-    @Inject lateinit var contentResolver: ContentResolver
+class ExternalStorageManager(val contentResolver: ContentResolver) : ContentManager {
 
     override fun getImageFromUri(uri: Uri): Single<Bitmap> {
         return Single.just(contentResolver.openInputStream(uri))

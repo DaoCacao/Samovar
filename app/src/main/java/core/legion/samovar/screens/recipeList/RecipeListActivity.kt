@@ -2,29 +2,27 @@ package core.legion.samovar.screens.recipeList
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.github.salomonbrys.kodein.*
-import com.github.salomonbrys.kodein.android.AndroidInjector
 import com.github.salomonbrys.kodein.android.KodeinAppCompatActivity
 import core.legion.samovar.*
-import core.legion.samovar.base.BaseActivity
 import core.legion.samovar.entry.RecipeListItem
 import core.legion.samovar.screens.addRecipe.AddRecipeActivity
 import core.legion.samovar.screens.recipeInfo.RecipeInfoActivity
 import core.legion.samovar.utils.Helper
 import kotlinx.android.synthetic.main.activity_recipe_list.*
-import javax.inject.Inject
 
 class RecipeListActivity : KodeinAppCompatActivity(), RecipeListFacade.View {
 
     override fun provideOverridingModule(): Kodein.Module = Kodein.Module {
         bind<RecipeListFacade.View>() with provider { this@RecipeListActivity }
-        bind<RecipeListFacade.Presenter>() with provider { RecipeListPresenter(instance(), instance()) }
-        bind<RecipeListFacade.Interactor>() with provider { RecipeListInteractor() }
+        bind<RecipeListPresenter>() with singleton { RecipeListPresenter(instance(), instance()) }
+        bind<RecipeListFacade.Presenter>() with provider { instance<RecipeListPresenter>() }
+        bind<RecipeListFacade.RecipeListListener>() with provider { instance<RecipeListPresenter>() }
+        bind<RecipeListFacade.Interactor>() with provider { RecipeListInteractor(instance()) }
         bind<RecipeListAdapter>() with provider { RecipeListAdapter(instance()) }
     }
 
@@ -34,7 +32,8 @@ class RecipeListActivity : KodeinAppCompatActivity(), RecipeListFacade.View {
         Recipes
     }
 
-    private var adapter: RecipeListAdapter by kodein().getValue()
+    private val presenter: RecipeListFacade.Presenter by instance()
+    private val adapter: RecipeListAdapter by instance()
 
     private val layoutManager = GridLayoutManager(this, 2)
 
